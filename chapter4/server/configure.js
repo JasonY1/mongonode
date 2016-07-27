@@ -9,6 +9,12 @@ var path = require('path'),
     errorHandler = require('errorhandler');
 
 module.exports = function(app){
+  app.engine('handlebars', exphbs.create({
+    defaultLayout: 'main',
+    layoutsDir: app.get('views') + '/layouts',
+    partialsDir: [app.get('views') + '/partials']
+  }).engine);
+  app.set('view engine', 'handlebars');
   app.use(morgan('dev'));
   app.use(bodyParser.urlencoded({'extended':true}));
   app.use(bodyParser.json());
